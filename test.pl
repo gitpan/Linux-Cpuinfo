@@ -1,5 +1,5 @@
 use Test;
-BEGIN { plan tests => 10 };
+BEGIN { plan tests => 12 };
 use Linux::Cpuinfo;
 ok(1); 
 
@@ -96,6 +96,29 @@ eval
      my $bog = $cpu->bogomips();
    }
    ok(10);
+};
+if ( $@ )
+{
+  ok(0);
+}
+
+# Test the new interface to the constructor
+
+eval
+{
+   $cpuinfo = Linux::Cpuinfo->cpuinfo({NoFatal => 1});
+   ok(11);
+};
+
+if ( $@ )
+{
+   ok(0);
+}
+
+eval
+{
+   $cpuinfo->fofoo() && die ;
+   ok(12);   
 };
 if ( $@ )
 {

@@ -19,3 +19,8 @@ Revision history for Perl extension Linux::Cpuinfo.
 1.4    Tue Jan 29 21:48:31 GMT 2002
 
          * Fixed subtleties caused by not closing CPUINFO
+
+1.5    Mon Jun 10 13:16:40 BST 2002
+
+         * Allowed control of whether the attribute accessors croak or
+           return undef if the attribute is not present in the CPU

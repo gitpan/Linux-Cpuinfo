@@ -14,6 +14,9 @@
 #*****************************************************************************
 #*
 #*          $Log: Cpuinfo.pm,v $
+#*          Revision 1.5  2002/06/10 12:21:58  gellyfish
+#*          Change to failure mode of accessors suggested by Tels
+#*
 #*          Revision 1.4  2002/01/29 21:47:12  gellyfish
 #*          * Closing CPUINFO as reported by tels :)
 #*
@@ -100,23 +103,40 @@ use vars qw(
              $AUTOLOAD
            );
 
-($VERSION) = q$Revision: 1.4 $ =~ /([\d.]+)/;
+($VERSION) = q$Revision: 1.5 $ =~ /([\d.]+)/;
 
 =item cpuinfo
 
 Returns a blessed object suitable for calling the rest of the methods on or
-a false value if for some reason C</proc/cpuinfo> cant be opened.  The single
-argument can be an alternative file that provides identical information.
+a false value if for some reason C</proc/cpuinfo> cant be opened.  The first
+argument can be an alternative file that provides identical information.  You
+may also supply a hashref containing other arguments - the valid keys are
+
+=over 2
+
+=item NoFatal
+
+The default behaviour is for the method to croak if an attribute is requested
+that is not available on this particular CPU.  If this argument is supplied
+with a true value then the method will return undef instead.  
+
+=back
 
 =cut
 
 sub cpuinfo
 {
-   my ( $proto, $file ) = @_;
+   my ( $proto, $file, $args ) = @_;
 
    my $class = ref($proto) || $proto;
 
    my $self;
+
+   if ( $file and ref($file) and ref($file) eq 'HASH' )
+   {
+      $args = $file;
+      $file = undef;
+   }
 
    $file ||= '/proc/cpuinfo';
    
@@ -163,8 +183,8 @@ sub cpuinfo
                }
 
             }
-            bless $cpuinfo, "${class}::Cpu";
-            push @{$self->{_cpuinfo}}, $cpuinfo;
+            my $cpuinfo_cpu = Linux::Cpuinfo::Cpu->new($cpuinfo, $args);
+            push @{$self->{_cpuinfo}}, $cpuinfo_cpu;
          }
 
          bless $self, $class;
@@ -387,8 +407,26 @@ measure of the CPU's performance.
 package Linux::Cpuinfo::Cpu;
 
 use strict;
+use Carp;
 
 use vars qw($AUTOLOAD);
+
+sub new
+{
+   my ( $proto,$cpuinfo, $args ) = @_;
+
+   my $class = ref($proto) || $proto;
+
+   my $self = {};
+
+   $self->{_args} = $args;
+   $self->{_data} = $cpuinfo;
+
+   bless $self, $class;
+
+   return $self;
+
+}
 
 sub AUTOLOAD
 {
@@ -399,13 +437,13 @@ sub AUTOLOAD
 
   my ( $method ) = $AUTOLOAD =~ /.*::(.+?)$/;
 
-  if ( exists $self->{$method} )
+  if ( exists $self->{_data}->{$method} )
   {
     no strict 'refs';
 
     *{$AUTOLOAD} = sub {
                          my ( $self ) = @_;
-                         return $self->{$method};
+                         return $self->{_data}->{$method};
                        };
 
     goto &{$AUTOLOAD};
@@ -414,10 +452,16 @@ sub AUTOLOAD
   else
   {
 
-    croak( sprintf(q(Can't locate object method "%s" via package "%s"),
-                  $method,
-                  ref($self))); 
-
+    if ( $self->{_args}->{NoFatal} )
+    {
+        return undef;
+    }
+    else
+    {
+       croak( sprintf(q(Can't locate object method "%s" via package "%s"),
+                     $method,
+                     ref($self))); 
+    } 
 
   }
 }
