@@ -15,3 +15,7 @@ Revision history for Perl extension Linux::Cpuinfo.
          * Proper support for SMP thanks to Tels
          * Tests against various CPUs thanks to various people
          * Start of attempt to document for more processors 
+
+1.4    Tue Jan 29 21:48:31 GMT 2002
+
+         * Fixed subtleties caused by not closing CPUINFO

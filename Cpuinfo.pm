@@ -14,6 +14,9 @@
 #*****************************************************************************
 #*
 #*          $Log: Cpuinfo.pm,v $
+#*          Revision 1.4  2002/01/29 21:47:12  gellyfish
+#*          * Closing CPUINFO as reported by tels :)
+#*
 #*          Revision 1.3  2001/09/11 07:23:16  gellyfish
 #*          * Applied kindly patch from Tels
 #*          * Added proper SMP support
@@ -97,7 +100,7 @@ use vars qw(
              $AUTOLOAD
            );
 
-($VERSION) = q$Revision: 1.3 $ =~ /([\d.]+)/;
+($VERSION) = q$Revision: 1.4 $ =~ /([\d.]+)/;
 
 =item cpuinfo
 
@@ -165,6 +168,7 @@ sub cpuinfo
          }
 
          bless $self, $class;
+         close CPUINFO; # can this fail
       }
    }
 
