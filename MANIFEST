@@ -4,3 +4,8 @@ Makefile.PL
 MANIFEST
 README
 test.pl
+proc/cpuinfo.agenda_mips
+proc/cpuinfo.alpha
+proc/cpuinfo.ppc
+proc/cpuinfo.sparc
+proc/cpuinfo.x86_smp

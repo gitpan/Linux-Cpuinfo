@@ -25,6 +25,13 @@ I would be delighted if this was found to work on other systems than Linux
 and indeed if other OS do have a similar interface then I might be 
 persuaded to include support for them in future releases.
 
+Since the original release of this module I have received copies of the
+/proc/cpuinfo from a variety of architectures from a number of people
+which has been very helpful in developing this module further.  
+Keep them coming - and if you understand what the information means a 
+little note explaining it for inclusion in the documentation would
+be very welcome.
+
 COPYRIGHT AND LICENCE
 
 Copyright (C) 2001 Jonathan Stowe All rights reserved.

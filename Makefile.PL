@@ -1,4 +1,19 @@
 use ExtUtils::MakeMaker;
+
+if ( ! -f '/proc/cpuinfo' )
+{
+   print <<EONOCPUINFO;
+****************************************************
+
+You dont appear to have /proc/cpuinfo on your system 
+If you have a similar file located elsewhere then this
+module may well still work - if you dont however then
+its unlikely this module will be very useful to you.
+
+****************************************************
+EONOCPUINFO
+}
+
 WriteMakefile(
     'NAME'		=> 'Linux::Cpuinfo',
     'VERSION_FROM'	=> 'Cpuinfo.pm', 
