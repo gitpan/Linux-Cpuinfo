@@ -6,3 +6,6 @@ Revision history for Perl extension Linux::Cpuinfo.
 
 1.1   Sun Jun 17 13:22:33 BST 2001
          Released version.
+
+1.2   Sun Jun 17 22:28:47 BST 2001
+         Had totally cocked up and forgot most of the documentation
