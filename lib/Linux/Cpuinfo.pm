@@ -1,7 +1,7 @@
 #******************************************************************************
-#*           
-#*                             GELLYFISH SOFTWARE           
-#*                                                       
+#*
+#*                             GELLYFISH SOFTWARE
+#*
 #*
 #******************************************************************************
 #*
@@ -14,6 +14,13 @@
 #*****************************************************************************
 #*
 #*          $Log: Cpuinfo.pm,v $
+#*          Revision 1.7  2004/09/27 12:31:23  jonathan
+#*          * Small changes from Tels
+#*          * Rearranging source
+#*
+#*          Revision 1.6  2004/06/24 16:36:14  jonathan
+#*          * Fixed typo in the example of num_cpus
+#*
 #*          Revision 1.5  2002/06/10 12:21:58  gellyfish
 #*          Change to failure mode of accessors suggested by Tels
 #*
@@ -34,7 +41,7 @@
 #*
 #*
 #*
-#*****************************************************************************/ 
+#*****************************************************************************/
 
 package Linux::Cpuinfo;
 
@@ -60,7 +67,7 @@ Linux::Cpuinfo - Object Oriented Interface to /proc/cpuinfo
 
   my $cpuinfo = Linux::Cpuinfo->new();
 
-  $cnt  = $cpuinfo->num_cpus();	 # > 0 for an SMP system
+  $cnt  = $cpuinfo->num_cpus();	 # > 1 for an SMP system
 
 
    foreach my $cpu ( $cpuinfo->cpus() )
@@ -99,11 +106,11 @@ use strict;
 use Carp;
 
 use vars qw(
-             $VERSION
-             $AUTOLOAD
-           );
+  $VERSION
+  $AUTOLOAD
+);
 
-($VERSION) = q$Revision: 1.5 $ =~ /([\d.]+)/;
+($VERSION) = q$Revision: 1.7 $ =~ /([\d.]+)/;
 
 =item cpuinfo
 
@@ -126,73 +133,73 @@ with a true value then the method will return undef instead.
 
 sub cpuinfo
 {
-   my ( $proto, $file, $args ) = @_;
+    my ( $proto, $file, $args ) = @_;
 
-   my $class = ref($proto) || $proto;
+    my $class = ref($proto) || $proto;
 
-   my $self;
+    my $self;
 
-   if ( $file and ref($file) and ref($file) eq 'HASH' )
-   {
-      $args = $file;
-      $file = undef;
-   }
+    if ( $file and ref($file) and ref($file) eq 'HASH' )
+    {
+        $args = $file;
+        $file = undef;
+    }
 
-   $file ||= '/proc/cpuinfo';
-   
-   if ( -e $file   and  -f $file  )
-   {
-    
-      if ( open(CPUINFO,$file ) )
-      {
-         $self = {};
+    $file ||= '/proc/cpuinfo';
 
-         my $ofh = select CPUINFO ; $/ = ''; select $ofh;
+    if ( -e $file and -f $file )
+    {
 
-         $self->{_private}->{num_cpus} = 0;
+        if ( open( CPUINFO, $file ) )
+        {
+            $self = {};
 
-         $self->{_cpuinfo} = [];
+            local $/ = '';
 
-         while(<CPUINFO>)
-         {
-            chomp;
+            $self->{_private}->{num_cpus} = 0;
 
-            $self->{_private}->{num_cpus}++;
+            $self->{_cpuinfo} = [];
 
-            my $cpuinfo = {};
-
-            foreach my $cpuline ( split /\n/ )
+            while (<CPUINFO>)
             {
-               my ( $attribute, $value ) = split /\s*:\s*/, $cpuline;
+                chomp;
 
-               $attribute =~ s/\s+/_/;
-               $attribute = lc($attribute);
+                $self->{_private}->{num_cpus}++;
 
-               if ( $value =~ /^(no|not available|yes)$/ )
-               {
-                  $value = $value eq 'yes' ? 1 : 0;
-               }
-            
-               if ( $attribute eq 'flags' )
-               {
-                  @{$cpuinfo->{flags}} = split / /, $value;
-               }
-               else
-               {
-                 $cpuinfo->{$attribute} = $value;
-               }
+                my $cpuinfo = {};
 
+                foreach my $cpuline ( split /\n/ )
+                {
+                    my ( $attribute, $value ) = split /\s*:\s*/, $cpuline;
+
+                    $attribute =~ s/\s+/_/;
+                    $attribute = lc($attribute);
+
+                    if ( $value =~ /^(no|not available|yes)$/ )
+                    {
+                        $value = $value eq 'yes' ? 1 : 0;
+                    }
+
+                    if ( $attribute eq 'flags' )
+                    {
+                        @{ $cpuinfo->{flags} } = split / /, $value;
+                    }
+                    else
+                    {
+                        $cpuinfo->{$attribute} = $value;
+                    }
+
+                }
+                my $cpuinfo_cpu = Linux::Cpuinfo::Cpu->new( $cpuinfo, $args );
+                push @{ $self->{_cpuinfo} }, $cpuinfo_cpu;
             }
-            my $cpuinfo_cpu = Linux::Cpuinfo::Cpu->new($cpuinfo, $args);
-            push @{$self->{_cpuinfo}}, $cpuinfo_cpu;
-         }
 
-         bless $self, $class;
-         close CPUINFO; # can this fail
-      }
-   }
+            bless $self, $class;
+            close CPUINFO;    # can this fail
+        }
+    }
 
-   return $self;
+    return $self;
 }
 
 # just in case anyone is a lame as me :)
@@ -207,9 +214,9 @@ Returns the number of CPUs reported for this system.
 
 sub num_cpus
 {
-   my ( $self ) = @_;
+    my ($self) = @_;
 
-   return $self->{_private}->{num_cpus};
+    return $self->{_private}->{num_cpus};
 }
 
 =item cpu SCALAR $cpu
@@ -225,21 +232,20 @@ be set to the first or last CPU ( depending whether $cpu was < 0 or >num_cpus )
 
 sub cpu
 {
-   my ( $self, $cpu ) = @_;
+    my ( $self, $cpu ) = @_;
 
-   if ( defined $cpu )
-   {
-     $cpu = 0 if ( $cpu < 0 );
-     $cpu = $#{$self->{_cpuinfo}} if $cpu > $#{$self->{_cpuinfo}}; 
-   }
-   else
-   {
-     $cpu = $#{$self->{_cpuinfo}};
-   }
+    if ( defined $cpu )
+    {
+        $cpu = 0 if ( $cpu < 0 );
+        $cpu = $#{ $self->{_cpuinfo} } if $cpu > $#{ $self->{_cpuinfo} };
+    }
+    else
+    {
+        $cpu = $#{ $self->{_cpuinfo} };
+    }
 
-   return $self->{_cpuinfo}->[$cpu];
+    return $self->{_cpuinfo}->[$cpu];
 }
-
 
 =item cpus
 
@@ -249,39 +255,38 @@ context it will return a reference to an array of those objects.
 
 =cut
 
-
 sub cpus
 {
-   my ( $self ) = @_;
+    my ($self) = @_;
 
-   if ( wantarray() )
-   {
-      return @{$self->{_cpuinfo}};
-   }
-   else
-   {
-      return $self->{_cpuinfo};
-   }
+    if ( wantarray() )
+    {
+        return @{ $self->{_cpuinfo} };
+    }
+    else
+    {
+        return $self->{_cpuinfo};
+    }
 }
 
 sub AUTOLOAD
 {
 
-  my ( $self ) = @_;
+    my ($self) = @_;
 
-  return if $AUTOLOAD =~ /DESTROY/;
+    return if $AUTOLOAD =~ /DESTROY/;
 
-  my ( $method ) = $AUTOLOAD =~ /.*::(.+?)$/;
+    my ($method) = $AUTOLOAD =~ /.*::(.+?)$/;
 
-  no strict 'refs';
+    {
+        no strict 'refs';
 
-  *{$AUTOLOAD} = sub {
-                       my ($self) = @_;
-                       return $self->{_cpuinfo}->[$#{$self->{_cpuinfo}}]->$method();
-                     };
-  goto &{$AUTOLOAD};
-
-  use strict 'refs';
+        *{$AUTOLOAD} = sub {
+            my ($self) = @_;
+            return $self->{_cpuinfo}->[ $#{ $self->{_cpuinfo} } ]->$method();
+        };
+    }
+    goto &{$AUTOLOAD};
 }
 
 # The following are autoloaded methods of the Linux::Cpuinfo::Cpu class
@@ -403,7 +408,6 @@ measure of the CPU's performance.
 
 =cut
 
-
 package Linux::Cpuinfo::Cpu;
 
 use strict;
@@ -413,61 +417,65 @@ use vars qw($AUTOLOAD);
 
 sub new
 {
-   my ( $proto,$cpuinfo, $args ) = @_;
+    my ( $proto, $cpuinfo, $args ) = @_;
 
-   my $class = ref($proto) || $proto;
+    my $class = ref($proto) || $proto;
 
-   my $self = {};
+    my $self = {};
 
-   $self->{_args} = $args;
-   $self->{_data} = $cpuinfo;
+    $self->{_args} = $args;
+    $self->{_data} = $cpuinfo;
 
-   bless $self, $class;
+    bless $self, $class;
 
-   return $self;
+    return $self;
 
 }
 
 sub AUTOLOAD
 {
 
-  my ( $self ) = @_;
+    my ($self) = @_;
 
-  return if $AUTOLOAD =~ /DESTROY/;
+    return if $AUTOLOAD =~ /DESTROY/;
 
-  my ( $method ) = $AUTOLOAD =~ /.*::(.+?)$/;
+    my ($method) = $AUTOLOAD =~ /.*::(.+?)$/;
 
-  if ( exists $self->{_data}->{$method} )
-  {
-    no strict 'refs';
-
-    *{$AUTOLOAD} = sub {
-                         my ( $self ) = @_;
-                         return $self->{_data}->{$method};
-                       };
-
-    goto &{$AUTOLOAD};
-
-  }
-  else
-  {
-
-    if ( $self->{_args}->{NoFatal} )
+    if ( exists $self->{_data}->{$method} )
     {
-        return undef;
+        no strict 'refs';
+
+        *{$AUTOLOAD} = sub {
+            my ($self) = @_;
+            return $self->{_data}->{$method};
+        };
+
+        goto &{$AUTOLOAD};
+
     }
     else
     {
-       croak( sprintf(q(Can't locate object method "%s" via package "%s"),
-                     $method,
-                     ref($self))); 
-    } 
 
-  }
+        if ( $self->{_args}->{NoFatal} )
+        {
+            return undef;
+        }
+        else
+        {
+            croak(
+                sprintf(
+                    q(Can't locate object method "%s" via package "%s"),
+                    $method, ref($self)
+                )
+            );
+        }
+
+    }
 }
 
 1;
 __END__
+
 =head2 EXPORT
 
 None by default.

@@ -1,11 +1,16 @@
 Changes
-Cpuinfo.pm
+lib/Linux/Cpuinfo.pm
 Makefile.PL
 MANIFEST
+MANIFEST.SKIP
+SIGNATURE
 README
-test.pl
+t/cpuinfo.t
+t/0-signature.t
 proc/cpuinfo.agenda_mips
 proc/cpuinfo.alpha
 proc/cpuinfo.ppc
 proc/cpuinfo.sparc
 proc/cpuinfo.x86_smp
+proc/cpuinfo.Xeon_smp
+META.yml                                Module meta-data (added by MakeMaker)

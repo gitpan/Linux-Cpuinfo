@@ -16,9 +16,9 @@ EONOCPUINFO
 
 WriteMakefile(
     'NAME'		=> 'Linux::Cpuinfo',
-    'VERSION_FROM'	=> 'Cpuinfo.pm', 
-    'PREREQ_PM'		=> {}, 
+    'VERSION_FROM'	=> 'lib/Linux/Cpuinfo.pm', 
+    'PREREQ_PM'		=> {Test::Simple => 0.47 }, 
     ($] >= 5.005 ?   
-      (ABSTRACT_FROM => 'Cpuinfo.pm',
+      (ABSTRACT_FROM => 'lib/Linux/Cpuinfo.pm',
        AUTHOR     => 'Jonathan Stowe <gellyfish@gellyfish.com>') : ()),
 );

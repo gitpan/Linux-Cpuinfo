@@ -24,3 +24,12 @@ Revision history for Perl extension Linux::Cpuinfo.
 
          * Allowed control of whether the attribute accessors croak or
            return undef if the attribute is not present in the CPU
+
+1.6   Thu Jun 24 16:36:14 BST 2004
+
+         * Fixed typo in the example of num_cpus
+
+1.7   Mon Sep 27 13:08:44 BST 2004
+
+         * Changes from Tels
+         * Reorganized source and tests
