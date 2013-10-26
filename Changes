@@ -33,3 +33,8 @@ Revision history for Perl extension Linux::Cpuinfo.
 
          * Changes from Tels
          * Reorganized source and tests
+
+1.8	Sat Oct 26 21:10:31 BST 2013
+
+	 * Change email address
+         * Add github details for a more sharing decade

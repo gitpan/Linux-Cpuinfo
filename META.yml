@@ -1,10 +1,22 @@
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Linux-Cpuinfo
-version:      1.7
-version_from: lib/Linux/Cpuinfo.pm
-installdirs:  site
+---
+abstract: 'Object Oriented Interface to /proc/cpuinfo'
+author:
+  - 'Jonathan Stowe <jns@gellyfish.co.uk>'
+build_requires:
+  ExtUtils::MakeMaker: 0
+configure_requires:
+  ExtUtils::MakeMaker: 0
+dynamic_config: 1
+generated_by: 'ExtUtils::MakeMaker version 6.62, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Linux-Cpuinfo
+no_index:
+  directory:
+    - t
+    - inc
 requires:
-    Test::Simple:                  0.47
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.13
+  Test::Simple: 0.47
+version: 1.8

@@ -12,36 +12,6 @@
 #*          DESCRIPTION  :   Object Oriented interface to /proc/cpuinfo
 #*
 #*****************************************************************************
-#*
-#*          $Log: Cpuinfo.pm,v $
-#*          Revision 1.7  2004/09/27 12:31:23  jonathan
-#*          * Small changes from Tels
-#*          * Rearranging source
-#*
-#*          Revision 1.6  2004/06/24 16:36:14  jonathan
-#*          * Fixed typo in the example of num_cpus
-#*
-#*          Revision 1.5  2002/06/10 12:21:58  gellyfish
-#*          Change to failure mode of accessors suggested by Tels
-#*
-#*          Revision 1.4  2002/01/29 21:47:12  gellyfish
-#*          * Closing CPUINFO as reported by tels :)
-#*
-#*          Revision 1.3  2001/09/11 07:23:16  gellyfish
-#*          * Applied kindly patch from Tels
-#*          * Added proper SMP support
-#*          * Test for SMP support
-#*
-#*
-#*          Revision 1.2  2001/06/17 21:28:26  gellyfish
-#*          Ooh forgot the documentation
-#*
-#*          Revision 1.1  2001/06/17 12:40:16  gellyfish
-#*          Checked into CVS for first release
-#*
-#*
-#*
-#*****************************************************************************/
 
 package Linux::Cpuinfo;
 
@@ -110,7 +80,7 @@ use vars qw(
   $AUTOLOAD
 );
 
-($VERSION) = q$Revision: 1.7 $ =~ /([\d.]+)/;
+($VERSION) = q$Revision: 1.8 $ =~ /([\d.]+)/;
 
 =item cpuinfo
 
@@ -488,13 +458,19 @@ the contents of C</proc/cpuinfo > are different for different processors.
 I really would be indebted if Linux users from other than x86 processors
 would help me document this properly.
 
+The source can be found at
+
+    https://github.com/jonathanstowe/Linux-Cpuinfo
+
+Please feel free to fork, send patches etc.
+
 =head1 COPYRIGHT AND LICENSE
 
 See the README file in the Distribution Kit
 
 =head1 AUTHOR
 
-Jonathan Stowe, E<lt>gellyfish@gellyfish.comE<gt>
+Jonathan Stowe, E<lt>jns@gellyfish.co.ukE<gt>
 
 =head1 SEE ALSO
 

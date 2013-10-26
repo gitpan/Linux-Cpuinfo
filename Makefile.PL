@@ -18,7 +18,8 @@ WriteMakefile(
     'NAME'		=> 'Linux::Cpuinfo',
     'VERSION_FROM'	=> 'lib/Linux/Cpuinfo.pm', 
     'PREREQ_PM'		=> {Test::Simple => 0.47 }, 
+    'LICENSE'       => 'perl',
     ($] >= 5.005 ?   
       (ABSTRACT_FROM => 'lib/Linux/Cpuinfo.pm',
-       AUTHOR     => 'Jonathan Stowe <gellyfish@gellyfish.com>') : ()),
+       AUTHOR     => 'Jonathan Stowe <jns@gellyfish.co.uk>') : ()),
 );
