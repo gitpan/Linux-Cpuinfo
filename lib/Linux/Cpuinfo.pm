@@ -80,7 +80,7 @@ use vars qw(
   $AUTOLOAD
 );
 
-$VERSION = '1.9';
+$VERSION = '1.10';
 
 =item cpuinfo
 

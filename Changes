@@ -42,3 +42,7 @@ Revision history for Perl extension Linux::Cpuinfo.
 1.9	Sun 31 Aug 16:28:09 BST 2014
 	 
 	 * Fix the signature
+
+1.10	Sun 31 Aug 17:00:08 BST 2014
+
+	* Skip those stupid generated meta files

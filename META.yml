@@ -16,4 +16,4 @@ no_index:
     - inc
 resources:
   repository: https://github.com/jonathanstowe/Linux-Cpuinfo.git
-version: '1.9'
+version: '1.10'
