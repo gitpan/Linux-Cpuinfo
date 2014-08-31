@@ -80,7 +80,7 @@ use vars qw(
   $AUTOLOAD
 );
 
-($VERSION) = q$Revision: 1.8 $ =~ /([\d.]+)/;
+$VERSION = '1.9';
 
 =item cpuinfo
 

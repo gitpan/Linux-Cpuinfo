@@ -1,12 +1,12 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.41.
+signed via the Module::Signature module, version 0.73.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
 
     % cpansign -v
 
-It would check each file's integrity, as well as the signature's
+It will check each file's integrity, as well as the signature's
 validity.  If "==> Signature verified OK! <==" is not displayed,
 the distribution may already have been compromised, and you should
 not run its Makefile.PL or Build.PL.
@@ -14,12 +14,14 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 b6a3bf8994a89a1d60282a6a82a0de4ba60cbb99 Changes
-SHA1 f1e4bb3d56708a9ee6fb988c0125793df252104b MANIFEST
-SHA1 33449994616c3227f434d2e9fe097b224a57f3ec MANIFEST.SKIP
-SHA1 5c56683554efa332d581d9c9ef67457feb866f50 Makefile.PL
-SHA1 05c4a5840ee29eb497bbc28c78e3a61da92c14d5 README
-SHA1 23f9105ca3b2a4b6378783067046835d7b0e7bb8 lib/Linux/Cpuinfo.pm
+SHA1 e153ecb0129262154a72becb1971f84d235994d9 Changes
+SHA1 043f1c1793286acc75fa8f012003cfecf87ec45f MANIFEST
+SHA1 2e880b15c740517a978c097d99b65683715aa147 MANIFEST.SKIP
+SHA1 e553e29d83d37c50a79be84d421c106e53051d35 META.json
+SHA1 240007518ad55fe75b647c45b3ded582a524cc64 META.yml
+SHA1 e0651fd7d260108b88fc4f1b502eb9736c3b5891 Makefile.PL
+SHA1 511a44729a378abb0e0fae00531b87e80afbf7b3 README
+SHA1 ab0e1dbac6aa3b619b276c8f4f0bd1f5b8d3c5a5 lib/Linux/Cpuinfo.pm
 SHA1 8e78432cbe831f850063992256635265f13560f1 proc/cpuinfo.Xeon_smp
 SHA1 75a6fa11bafc438ad7fb3c0221827a3a094a63dd proc/cpuinfo.agenda_mips
 SHA1 66ab21fec8ab3d1d030e8ea094a7cc63983e1c8b proc/cpuinfo.alpha
@@ -29,9 +31,13 @@ SHA1 c30b492b4274591935081fbdfd42b1d06facd85a proc/cpuinfo.x86_smp
 SHA1 d964e3770c3a62bdb12a2b25042f9f4ea0cf21c0 t/0-signature.t
 SHA1 cb9a7c59942cc63ccf035e869291002fb9d9f88e t/cpuinfo.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.2.3 (GNU/Linux)
+Version: GnuPG v1
 
-iD8DBQFBWA9vfQUV5SzDQNQRAu2hAJ43ecYusOz2UP3QYrqT49o8lYaMNwCeNnMB
-1KDgRcs0weanWkKZqNIx2po=
-=N0xr
+iQEcBAEBAgAGBQJUA0ADAAoJECBWhy2NZBIAZRQH/2m7m9NjlT4Pw/oOwPGI2t7s
+9WxvoeA3nO7JN+tmztzz7e6+u1+rdP5InGLyOsioEdAiI4V6UQDFoWTkR7svxxy0
+eI3noaO90YS0ui0pNxCCTvsxKKdoQ169OksRQWpGPWtlr+/rAoJkcsxRihaVCsFi
+S9SlLFDTGrPrQk7d6tRoYQbg7wlyI7CoY7xKhrGXJ+3vrzeyhztAg7VwS9xw2Kl6
+AFgPPnJt/jLgWOXkf/dybIxM9t4LoyMTi8VidbgDYTolr5ry/BF2wgAgqWxozsIa
+te3Qm9ex3n9h1c4Lcl+PGSmB9x0KJk+jvT9U0h5dMN7U1Kc5uOCRiAZhmH1odGg=
+=lqCz
 -----END PGP SIGNATURE-----

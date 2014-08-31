@@ -3,7 +3,6 @@ lib/Linux/Cpuinfo.pm
 Makefile.PL
 MANIFEST
 MANIFEST.SKIP
-SIGNATURE
 README
 t/cpuinfo.t
 t/0-signature.t
@@ -15,3 +14,4 @@ proc/cpuinfo.x86_smp
 proc/cpuinfo.Xeon_smp
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)
+SIGNATURE                                Public-key signature (added by MakeMaker)

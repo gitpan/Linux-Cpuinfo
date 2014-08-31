@@ -17,8 +17,20 @@ EONOCPUINFO
 WriteMakefile(
     'NAME'		=> 'Linux::Cpuinfo',
     'VERSION_FROM'	=> 'lib/Linux/Cpuinfo.pm', 
+    'SIGN'          =>  1,
     'PREREQ_PM'		=> {Test::Simple => 0.47 }, 
     'LICENSE'       => 'perl',
+    META_MERGE => {
+        'meta-spec' => { version => 2 },
+        resources => {
+            repository => {
+                type => 'git',
+                url  => 'https://github.com/jonathanstowe/Linux-Cpuinfo.git',
+                web  => 'https://github.com/jonathanstowe/Linux-Cpuinfo',
+            },
+        },
+    },
+
     ($] >= 5.005 ?   
       (ABSTRACT_FROM => 'lib/Linux/Cpuinfo.pm',
        AUTHOR     => 'Jonathan Stowe <jns@gellyfish.co.uk>') : ()),

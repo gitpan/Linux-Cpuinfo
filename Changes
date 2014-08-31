@@ -38,3 +38,7 @@ Revision history for Perl extension Linux::Cpuinfo.
 
 	 * Change email address
          * Add github details for a more sharing decade
+
+1.9	Sun 31 Aug 16:28:09 BST 2014
+	 
+	 * Fix the signature
